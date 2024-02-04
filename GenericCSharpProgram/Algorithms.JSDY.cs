@@ -9,7 +9,7 @@ public partial class Algorithms
     [Benchmark] public void SimpleType_JSDY() => SimpleType(ConstructTypeName_JSDY);
     [Benchmark] public void ModerateType_JSDY() => ModerateType(ConstructTypeName_JSDY);
     [Benchmark] public void CrazyType_JSDY() => CrazyType(ConstructTypeName_JSDY);
-    
+
     [Benchmark] public void SimpleType_JSDY_OPT() => SimpleType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void ModerateType_JSDY_OPT() => ModerateType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void CrazyType_JSDY_OPT() => CrazyType(ConstructTypeName_JSDY_OPT);
@@ -21,12 +21,12 @@ public partial class Algorithms
     [Benchmark] public void SimpleType_JSDY_OPT3() => SimpleType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void CrazyType_JSDY_OPT3() => CrazyType(ConstructTypeName_JSDY_OPT3);
-    
+
 
     [Benchmark] public void SimpleType_JSDY_OPT4() => SimpleType(ConstructTypeName_JSDY_OPT4);
     [Benchmark] public void ModerateType_JSDY_OPT4() => ModerateType(ConstructTypeName_JSDY_OPT4);
     [Benchmark] public void CrazyType_JSDY_OPT4() => CrazyType(ConstructTypeName_JSDY_OPT4);
-    
+
 
     public static string ConstructTypeName_JSDY(Type type)
     {
@@ -156,6 +156,7 @@ public partial class Algorithms
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder;
+
     public static string ConstructTypeName_JSDY_OPT(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -289,6 +290,7 @@ public partial class Algorithms
 
 
     [ThreadStatic] private static StringBuilder _stringBuilder2;
+
     public static string ConstructTypeName_JSDY_OPT2(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -429,6 +431,7 @@ public partial class Algorithms
 
 
     [ThreadStatic] private static StringBuilder _stringBuilder3;
+
     public static string ConstructTypeName_JSDY_OPT3(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -564,7 +567,9 @@ public partial class Algorithms
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder4;
-    private static readonly HashSet<Type> _tupleTypes = new HashSet<Type>() {
+
+    private static readonly HashSet<Type> _tupleTypes = new HashSet<Type>()
+    {
         // ValueTuple with only one element should be treated as normal generic type.
         //typeof(ValueTuple<>),
         typeof(ValueTuple<,>),
@@ -575,25 +580,26 @@ public partial class Algorithms
         typeof(ValueTuple<,,,,,,>),
         typeof(ValueTuple<,,,,,,,>),
     };
+
     private static readonly Dictionary<Type, string> _builtinTypeNameDict = new()
     {
-        {typeof(sbyte),"sbyte"},
-        {typeof(byte),"byte"},
-        {typeof(short),"short"},
-        {typeof(ushort),"ushort"},
-        {typeof(int),"int"},
-        {typeof(uint),"uint"},
-        {typeof(long),"long"},
-        {typeof(ulong),"ulong"},
-        {typeof(nint),"nint"},
-        {typeof(nuint),"nuint"},
-        {typeof(float),"float"},
-        {typeof(double),"double"},
-        {typeof(decimal),"decimal"},
-        {typeof(bool),"bool"},
-        {typeof(char),"char"},
-        {typeof(string),"string"},
-        {typeof(object),"object"},
+        { typeof(sbyte), "sbyte" },
+        { typeof(byte), "byte" },
+        { typeof(short), "short" },
+        { typeof(ushort), "ushort" },
+        { typeof(int), "int" },
+        { typeof(uint), "uint" },
+        { typeof(long), "long" },
+        { typeof(ulong), "ulong" },
+        { typeof(nint), "nint" },
+        { typeof(nuint), "nuint" },
+        { typeof(float), "float" },
+        { typeof(double), "double" },
+        { typeof(decimal), "decimal" },
+        { typeof(bool), "bool" },
+        { typeof(char), "char" },
+        { typeof(string), "string" },
+        { typeof(object), "object" },
     };
 
     public static string ConstructTypeName_JSDY_OPT4(Type type)
@@ -678,15 +684,19 @@ public partial class Algorithms
             if (_tupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
-                while (true) {
+                while (true)
+                {
                     // We assume that ValueTuple has 1~8 elements.
                     // And the 8th element (TRest) is always another ValueTuple.
 
                     // This is a hard coded tuple element length check.
-                    if (genericArgs.Length != 8) {
+                    if (genericArgs.Length != 8)
+                    {
                         AppendParamTypes(sb, genericArgs);
                         break;
-                    } else {
+                    }
+                    else
+                    {
                         AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
                         sb.Append(", ");
 
@@ -696,6 +706,7 @@ public partial class Algorithms
                         genericArgs = nextTuple.GenericTypeArguments;
                     }
                 }
+
                 sb.Append(')');
                 return;
             }

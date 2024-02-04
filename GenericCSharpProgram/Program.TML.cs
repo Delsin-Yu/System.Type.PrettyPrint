@@ -1,9 +1,13 @@
 ﻿using System.Text;
+using BenchmarkDotNet.Attributes;
 
 namespace GenericCSharpProgram;
 
 public partial class Program
 {
+    [Benchmark] public void SimpleType_TML() => SimpleType(ConstructTypeName_TML);
+    [Benchmark] public void ModerateType_TML() => ModerateType(ConstructTypeName_TML);
+    [Benchmark] public void CrazyType_TML() => CrazyType(ConstructTypeName_TML);
     private static string ConstructTypeName_TML(Type type)
     {
         var stringBuilder = new StringBuilder();

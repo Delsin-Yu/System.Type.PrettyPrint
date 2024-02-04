@@ -1,9 +1,25 @@
 ﻿using System.Text;
+using BenchmarkDotNet.Attributes;
 
 namespace GenericCSharpProgram;
 
 public partial class Program
 {
+    [Benchmark] public void SimpleType_JSDY() => SimpleType(ConstructTypeName_JSDY);
+    [Benchmark] public void ModerateType_JSDY() => ModerateType(ConstructTypeName_JSDY);
+    [Benchmark] public void CrazyType_JSDY() => CrazyType(ConstructTypeName_JSDY);
+    [Benchmark] public void SimpleType_JSDY_OPT() => SimpleType(ConstructTypeName_JSDY_OPT);
+    [Benchmark] public void ModerateType_JSDY_OPT() => ModerateType(ConstructTypeName_JSDY_OPT);
+    [Benchmark] public void CrazyType_JSDY_OPT() => CrazyType(ConstructTypeName_JSDY_OPT);
+
+    [Benchmark] public void SimpleType_JSDY_OPT2() => SimpleType(ConstructTypeName_JSDY_OPT2);
+    [Benchmark] public void ModerateType_JSDY_OPT2() => ModerateType(ConstructTypeName_JSDY_OPT2);
+    [Benchmark] public void CrazyType_JSDY_OPT2() => CrazyType(ConstructTypeName_JSDY_OPT2);
+
+    [Benchmark] public void SimpleType_JSDY_OPT3() => SimpleType(ConstructTypeName_JSDY_OPT3);
+    [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
+    [Benchmark] public void CrazyType_JSDY_OPT3() => CrazyType(ConstructTypeName_JSDY_OPT3);
+
     private static string ConstructTypeName_JSDY(Type type)
     {
         if (type.IsArray || type.IsGenericType)
@@ -263,7 +279,7 @@ public partial class Program
         }
     }
 
-    
+
     [ThreadStatic] private static StringBuilder _stringBuilder2;
     private static string ConstructTypeName_JSDY_OPT2(Type type)
     {
@@ -403,7 +419,7 @@ public partial class Program
         }
     }
 
-    
+
     [ThreadStatic] private static StringBuilder _stringBuilder3;
     private static string ConstructTypeName_JSDY_OPT3(Type type)
     {

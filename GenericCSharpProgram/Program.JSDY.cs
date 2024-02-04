@@ -575,19 +575,6 @@ public partial class Algorithms
         typeof(ValueTuple<,,,,,,>),
         typeof(ValueTuple<,,,,,,,>),
     };
-    // This is for the assert that checks tuple TRest type.
-    // Can be safely removed after removing Debug.Assert calls.
-    private static readonly HashSet<Type> _tupleTRestTypes = new HashSet<Type>() {
-        typeof(ValueTuple<>),
-        typeof(ValueTuple<,>),
-        typeof(ValueTuple<,,>),
-        typeof(ValueTuple<,,,>),
-        typeof(ValueTuple<,,,,>),
-        typeof(ValueTuple<,,,,,>),
-        typeof(ValueTuple<,,,,,,>),
-        typeof(ValueTuple<,,,,,,,>),
-    };
-
     private static readonly Dictionary<Type, string> _builtinTypeNameDict = new()
     {
         {typeof(sbyte),"sbyte"},
@@ -692,10 +679,10 @@ public partial class Algorithms
             {
                 sb.Append('(');
                 while (true) {
-                    Debug.Assert(genericArgs.Length > 0 && genericArgs.Length <= 8);
+                    // We assume that ValueTuple has 1~8 elements.
+                    // And the 8th element (TRest) is always another ValueTuple.
 
-                    // This is a hard coded tuple element length check,
-                    // since the 8th tuple element(TRest) must be another nested ValueTuple.
+                    // This is a hard coded tuple element length check.
                     if (genericArgs.Length != 8) {
                         AppendParamTypes(sb, genericArgs);
                         break;
@@ -704,7 +691,6 @@ public partial class Algorithms
 
                         // TRest should be a ValueTuple!
                         var nextTuple = genericArgs[7];
-                        Debug.Assert(_tupleTRestTypes.Contains(nextTuple.GetGenericTypeDefinition()));
 
                         genericArgs = nextTuple.GenericTypeArguments;
                     }

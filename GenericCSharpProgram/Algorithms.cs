@@ -1,5 +1,14 @@
-﻿namespace GenericCSharpProgram;
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 
+namespace GenericCSharpProgram;
+
+[
+    MemoryDiagnoser,
+    SimpleJob(RuntimeMoniker.Net60, invocationCount: 10000),
+    SimpleJob(RuntimeMoniker.Net70, invocationCount: 10000),
+    SimpleJob(RuntimeMoniker.Net80, invocationCount: 10000),
+]
 public partial class Algorithms
 {
     private static void SimpleType(Func<Type, string> call)

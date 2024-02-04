@@ -38,7 +38,9 @@ public class Tests
     private static void SimpleTypeValidate(Func<Type, string> call)
     {
         Validate(call(typeof(int?)));
+        Validate(call(typeof(ValueTuple<int>)));
         Validate(call(typeof((int, int))));
+        Validate(call(typeof((int, int, int, int, int, int, int, int))));
         Validate(call(typeof(List<int>)));
         Validate(call(typeof(Dictionary<int, int>)));
         Validate(call(typeof(Action<int, float, double, bool>)));

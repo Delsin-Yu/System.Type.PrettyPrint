@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 
 namespace GenericCSharpProgram;
@@ -563,6 +564,30 @@ public partial class Algorithms
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder4;
+    private static readonly HashSet<Type> _tupleTypes = new HashSet<Type>() {
+        // ValueTuple with only one element should be treated as normal generic type.
+        //typeof(ValueTuple<>),
+        typeof(ValueTuple<,>),
+        typeof(ValueTuple<,,>),
+        typeof(ValueTuple<,,,>),
+        typeof(ValueTuple<,,,,>),
+        typeof(ValueTuple<,,,,,>),
+        typeof(ValueTuple<,,,,,,>),
+        typeof(ValueTuple<,,,,,,,>),
+    };
+    // This is for the assert that checks tuple TRest type.
+    // Can be safely removed after removing Debug.Assert calls.
+    private static readonly HashSet<Type> _tupleTRestTypes = new HashSet<Type>() {
+        typeof(ValueTuple<>),
+        typeof(ValueTuple<,>),
+        typeof(ValueTuple<,,>),
+        typeof(ValueTuple<,,,>),
+        typeof(ValueTuple<,,,,>),
+        typeof(ValueTuple<,,,,,>),
+        typeof(ValueTuple<,,,,,,>),
+        typeof(ValueTuple<,,,,,,,>),
+    };
+
     public static string ConstructTypeName_JSDY_OPT4(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -632,9 +657,9 @@ public partial class Algorithms
         {
 
             var genericArgs = type.GenericTypeArguments;
-
+            var genericDefinition = type.GetGenericTypeDefinition();
             //Nullable
-            if (type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (genericDefinition == typeof(Nullable<>))
             {
                 AppendType(sb, genericArgs[0]);
                 sb.Append('?');
@@ -642,14 +667,36 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            var fullName = type.GetGenericTypeDefinition().FullName;
-            ReadOnlySpan<char> genericDefinitionFullName = fullName != null ? fullName.AsSpan() : ReadOnlySpan<char>.Empty;
-            if (genericDefinitionFullName.StartsWith("System.ValueTuple`"))
+            if (_tupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
-                AppendParamTypes(sb, genericArgs);
+                while (true) {
+                    Debug.Assert(genericArgs.Length is > 0 and <= 8);
+
+                    // This is a hard coded tuple element length check,
+                    // since the 8th tuple element(TRest) must be another nested ValueTuple.
+                    if (genericArgs.Length != 8) {
+                        AppendParamTypes(sb, genericArgs);
+                        break;
+                    } else {
+                        AppendParamTypesWithLastComma(sb, genericArgs.AsSpan(0, 7));
+
+                        // TRest should be a ValueTuple!
+                        var nextTuple = genericArgs[7];
+                        Debug.Assert(_tupleTRestTypes.Contains(nextTuple.GetGenericTypeDefinition()));
+
+                        genericArgs = nextTuple.GenericTypeArguments;
+                    }
+                }
                 sb.Append(')');
                 return;
+            }
+            static void AppendParamTypesWithLastComma(StringBuilder sb, ReadOnlySpan<Type> genericArgs) {
+                var n = genericArgs.Length;
+                for (int i = 0; i < n; i += 1) {
+                    AppendType(sb, genericArgs[i]);
+                    sb.Append(',').Append(' ');
+                }
             }
 
             //normal generic

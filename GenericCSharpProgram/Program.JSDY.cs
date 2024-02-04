@@ -588,6 +588,27 @@ public partial class Algorithms
         typeof(ValueTuple<,,,,,,,>),
     };
 
+    private static readonly Dictionary<Type, string> _builtinTypeNameDict = new()
+    {
+        {typeof(sbyte),"sbyte"},
+        {typeof(byte),"byte"},
+        {typeof(short),"short"},
+        {typeof(ushort),"ushort"},
+        {typeof(int),"int"},
+        {typeof(uint),"uint"},
+        {typeof(long),"long"},
+        {typeof(ulong),"ulong"},
+        {typeof(nint),"nint"},
+        {typeof(nuint),"nuint"},
+        {typeof(float),"float"},
+        {typeof(double),"double"},
+        {typeof(decimal),"decimal"},
+        {typeof(bool),"bool"},
+        {typeof(char),"char"},
+        {typeof(string),"string"},
+        {typeof(object),"object"},
+    };
+
     public static string ConstructTypeName_JSDY_OPT4(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -721,27 +742,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return type.FullName switch
-            {
-                "System.SByte" => "sbyte",
-                "System.Byte" => "byte",
-                "System.Int16" => "short",
-                "System.UInt16" => "ushort",
-                "System.Int32" => "int",
-                "System.UInt32" => "uint",
-                "System.Int64" => "long",
-                "System.UInt64" => "ulong",
-                "System.IntPtr" => "nint",
-                "System.UIntPtr" => "nuint",
-                "System.Single" => "float",
-                "System.Double" => "double",
-                "System.Decimal" => "decimal",
-                "System.Boolean" => "bool",
-                "System.Char" => "char",
-                "System.String" => "string",
-                "System.Object" => "object",
-                _ => type.Name
-            };
+            return _builtinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
         }
     }
 }

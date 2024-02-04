@@ -19,31 +19,23 @@ jobs:
           dotnet-version: "8.0" # SDK Version to use. keep in line with examples/benchmarkdotnet/global.json
       - name: Run benchmark
         run: cd ./GenericCSharpProgram/ && dotnet run --exporters json --filter '*' -c Release --framework net6.0
-
+      - name: Download previous benchmark data
+        uses: actions/cache@v4
+        with:
+          path: ./cache
+          key: ${{ runner.os }}-benchmark
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1
         with:
           name: Benchmark.Net Benchmark
           tool: "benchmarkdotnet"
           output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Algorithms-report-full-compressed.json
-          github-token: ${{ secrets.BOT_TOKEN }}
+          external-data-json-path: ./cache/GenericCSharpProgram.Algorithms-report-full-compressed.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           # Show alert with commit comment on detecting possible performance regression
           alert-threshold: "200%"
           comment-on-alert: true
           fail-on-alert: true
           alert-comment-cc-users: "@Zerxz"
-
-      - name: Store benchmark result - separate results repo
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          name: Benchmark.Net Benchmark
-          tool: "benchmarkdotnet"
-          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Algorithms-report-full-compressed.json
-          github-token: ${{ secrets.BOT_TOKEN }}
-          auto-push: true
-          # Show alert with commit comment on detecting possible performance regression
-          alert-threshold: "200%"
-          comment-on-alert: true
-          fail-on-alert: true
-          alert-comment-cc-users: "@Zerxz"
+          skip-fetch-gh-pages: true

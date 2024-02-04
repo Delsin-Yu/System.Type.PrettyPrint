@@ -583,23 +583,57 @@ public partial class Algorithms
 
     private static readonly Dictionary<Type, string> _builtinTypeNameDict = new()
     {
-        { typeof(sbyte), "sbyte" },
-        { typeof(byte), "byte" },
-        { typeof(short), "short" },
-        { typeof(ushort), "ushort" },
-        { typeof(int), "int" },
-        { typeof(uint), "uint" },
-        { typeof(long), "long" },
-        { typeof(ulong), "ulong" },
-        { typeof(nint), "nint" },
-        { typeof(nuint), "nuint" },
-        { typeof(float), "float" },
-        { typeof(double), "double" },
-        { typeof(decimal), "decimal" },
-        { typeof(bool), "bool" },
-        { typeof(char), "char" },
-        { typeof(string), "string" },
-        { typeof(object), "object" },
+        {
+            typeof(sbyte), "sbyte"
+        },
+        {
+            typeof(byte), "byte"
+        },
+        {
+            typeof(short), "short"
+        },
+        {
+            typeof(ushort), "ushort"
+        },
+        {
+            typeof(int), "int"
+        },
+        {
+            typeof(uint), "uint"
+        },
+        {
+            typeof(long), "long"
+        },
+        {
+            typeof(ulong), "ulong"
+        },
+        {
+            typeof(nint), "nint"
+        },
+        {
+            typeof(nuint), "nuint"
+        },
+        {
+            typeof(float), "float"
+        },
+        {
+            typeof(double), "double"
+        },
+        {
+            typeof(decimal), "decimal"
+        },
+        {
+            typeof(bool), "bool"
+        },
+        {
+            typeof(char), "char"
+        },
+        {
+            typeof(string), "string"
+        },
+        {
+            typeof(object), "object"
+        },
     };
 
     public static string ConstructTypeName_JSDY_OPT4(Type type)
@@ -650,10 +684,8 @@ public partial class Algorithms
                 while (true)
                 {
                     //append bracket with rank
-                    var rank = type.GetArrayRank();
-                    sb.Append('[');
-                    sb.Append(',', rank - 1);
-                    sb.Append(']');
+                    var rank = type.GetArrayRank() -1;
+                    sb.Append($"[{new string(',',rank)}]");
                     //recursive call
                     var elementType = type.GetElementType()!;
                     if (elementType.IsArray)
@@ -695,16 +727,13 @@ public partial class Algorithms
                         AppendParamTypes(sb, genericArgs);
                         break;
                     }
-                    else
-                    {
-                        AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
-                        sb.Append(", ");
+                    AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
+                    sb.Append(", ");
 
-                        // TRest should be a ValueTuple!
-                        var nextTuple = genericArgs[7];
+                    // TRest should be a ValueTuple!
+                    var nextTuple = genericArgs[7];
 
-                        genericArgs = nextTuple.GenericTypeArguments;
-                    }
+                    genericArgs = nextTuple.GenericTypeArguments;
                 }
 
                 sb.Append(')');

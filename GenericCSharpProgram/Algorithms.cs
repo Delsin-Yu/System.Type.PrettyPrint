@@ -9,6 +9,8 @@ namespace GenericCSharpProgram;
     SimpleJob(RuntimeMoniker.Net70, invocationCount: 10000),
     SimpleJob(RuntimeMoniker.Net80, invocationCount: 10000),
 ]
+[JsonExporterAttribute.Full]
+[JsonExporterAttribute.FullCompressed]
 public partial class Algorithms
 {
     private static void SimpleType(Func<Type, string> call)

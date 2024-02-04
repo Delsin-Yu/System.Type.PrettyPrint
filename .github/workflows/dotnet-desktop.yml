@@ -1,5 +1,6 @@
-name: Benchmark.Net Example
+name: Benchmark.Net GenericCSharpProgram
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -10,40 +11,27 @@ permissions:
 
 jobs:
   benchmark:
-    name: Run Benchmark.Net benchmark example
+    name: Run Benchmark.Net benchmark GenericCSharpProgram
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0'  # SDK Version to use. keep in line with examples/benchmarkdotnet/global.json
+          dotnet-version: "8.0" # SDK Version to use. keep in line with examples/benchmarkdotnet/global.json
       - name: Run benchmark
-        run: cd ./GenericCSharpProgram/ && dotnet run --exporters csv --filter '*' -c Release --framework net6.0
-
-      - name: Store benchmark result
-        uses: rhysd/github-action-benchmark@v1
+        run: cd ./GenericCSharpProgram/ && dotnet run --exporters json --filter '*' -c Release --framework net6.0
+      - name: Zip
+        run: |
+          zip -r "GenericCSharpProgram.Algorithms.zip" "./GenericCSharpProgram/BenchmarkDotNet.Artifacts/"
+      - name: Set Release version env variable
+        run: |
+          echo "RELEASE_VERSION=$(date "+%y.%m.%d")" >> $GITHUB_ENV
+      - name: Automatic Releases
+        uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
-          name: Benchmark.Net Benchmark
-          tool: 'benchmarkdotnet'
-          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Program-report.html
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          # Show alert with commit comment on detecting possible performance regression
-          alert-threshold: '200%'
-          comment-on-alert: true
-          fail-on-alert: true
-          alert-comment-cc-users: '@ktrz'
-
-      - name: Store benchmark result - separate results repo
-        uses: rhysd/github-action-benchmark@v1
-        with:
-          name: Benchmark.Net Benchmark
-          tool: 'benchmarkdotnet'
-          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Program-report.html
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          # Show alert with commit comment on detecting possible performance regression
-          alert-threshold: '200%'
-          comment-on-alert: true
-          fail-on-alert: true
-          alert-comment-cc-users: '@ktrz'
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          prerelease: false
+          title: "Benchmark.Net Result ${{ env.RELEASE_VERSION }}"
+          files: |
+            ./GenericCSharpProgram.Algorithms.zip

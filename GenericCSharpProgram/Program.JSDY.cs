@@ -687,7 +687,8 @@ public partial class Algorithms
                         AppendParamTypes(sb, genericArgs);
                         break;
                     } else {
-                        AppendParamTypesWithLastComma(sb, genericArgs.AsSpan(0, 7));
+                        AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
+                        sb.Append(',').Append(' ');
 
                         // TRest should be a ValueTuple!
                         var nextTuple = genericArgs[7];
@@ -697,13 +698,6 @@ public partial class Algorithms
                 }
                 sb.Append(')');
                 return;
-            }
-            static void AppendParamTypesWithLastComma(StringBuilder sb, ReadOnlySpan<Type> genericArgs) {
-                var n = genericArgs.Length;
-                for (int i = 0; i < n; i += 1) {
-                    AppendType(sb, genericArgs[i]);
-                    sb.Append(',').Append(' ');
-                }
             }
 
             //normal generic
@@ -722,7 +716,7 @@ public partial class Algorithms
                     sb.Append(',').Append(' ');
                 }
 
-                AppendType(sb, genericArgs[^1]);
+                AppendType(sb, genericArgs[n]);
             }
         }
 

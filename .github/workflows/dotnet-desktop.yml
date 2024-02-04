@@ -18,7 +18,7 @@ jobs:
         with:
           dotnet-version: '8.0'  # SDK Version to use. keep in line with examples/benchmarkdotnet/global.json
       - name: Run benchmark
-        run: cd examples/benchmarkdotnet && dotnet run --exporters json --filter '*'
+        run: cd GenericCSharpProgram && dotnet run --exporters json --filter '*'
 
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1

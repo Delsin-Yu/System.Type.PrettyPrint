@@ -59,6 +59,6 @@ public class Tests
 
     private static void Validate(string match, [CallerArgumentExpression(nameof(match))] string sourceType = "")
     {
-        Assert.That(sourceType[12..^2], Is.EqualTo(match));
+        Assert.That(match, Is.EqualTo(sourceType[12..^2]));
     }
 }

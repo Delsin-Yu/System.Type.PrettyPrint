@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 
 namespace GenericCSharpProgram;
@@ -563,6 +564,38 @@ public partial class Algorithms
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder4;
+    private static readonly HashSet<Type> _tupleTypes = new HashSet<Type>() {
+        // ValueTuple with only one element should be treated as normal generic type.
+        //typeof(ValueTuple<>),
+        typeof(ValueTuple<,>),
+        typeof(ValueTuple<,,>),
+        typeof(ValueTuple<,,,>),
+        typeof(ValueTuple<,,,,>),
+        typeof(ValueTuple<,,,,,>),
+        typeof(ValueTuple<,,,,,,>),
+        typeof(ValueTuple<,,,,,,,>),
+    };
+    private static readonly Dictionary<Type, string> _builtinTypeNameDict = new()
+    {
+        {typeof(sbyte),"sbyte"},
+        {typeof(byte),"byte"},
+        {typeof(short),"short"},
+        {typeof(ushort),"ushort"},
+        {typeof(int),"int"},
+        {typeof(uint),"uint"},
+        {typeof(long),"long"},
+        {typeof(ulong),"ulong"},
+        {typeof(nint),"nint"},
+        {typeof(nuint),"nuint"},
+        {typeof(float),"float"},
+        {typeof(double),"double"},
+        {typeof(decimal),"decimal"},
+        {typeof(bool),"bool"},
+        {typeof(char),"char"},
+        {typeof(string),"string"},
+        {typeof(object),"object"},
+    };
+
     public static string ConstructTypeName_JSDY_OPT4(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -632,9 +665,9 @@ public partial class Algorithms
         {
 
             var genericArgs = type.GenericTypeArguments;
-
+            var genericDefinition = type.GetGenericTypeDefinition();
             //Nullable
-            if (type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (genericDefinition == typeof(Nullable<>))
             {
                 AppendType(sb, genericArgs[0]);
                 sb.Append('?');
@@ -642,14 +675,35 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            var fullName = type.GetGenericTypeDefinition().FullName;
-            ReadOnlySpan<char> genericDefinitionFullName = fullName != null ? fullName.AsSpan() : ReadOnlySpan<char>.Empty;
-            if (genericDefinitionFullName.StartsWith("System.ValueTuple`"))
+            if (_tupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
-                AppendParamTypes(sb, genericArgs);
+                while (true) {
+                    // We assume that ValueTuple has 1~8 elements.
+                    // And the 8th element (TRest) is always another ValueTuple.
+
+                    // This is a hard coded tuple element length check.
+                    if (genericArgs.Length != 8) {
+                        AppendParamTypes(sb, genericArgs);
+                        break;
+                    } else {
+                        AppendParamTypesWithLastComma(sb, genericArgs.AsSpan(0, 7));
+
+                        // TRest should be a ValueTuple!
+                        var nextTuple = genericArgs[7];
+
+                        genericArgs = nextTuple.GenericTypeArguments;
+                    }
+                }
                 sb.Append(')');
                 return;
+            }
+            static void AppendParamTypesWithLastComma(StringBuilder sb, ReadOnlySpan<Type> genericArgs) {
+                var n = genericArgs.Length;
+                for (int i = 0; i < n; i += 1) {
+                    AppendType(sb, genericArgs[i]);
+                    sb.Append(',').Append(' ');
+                }
             }
 
             //normal generic
@@ -674,27 +728,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return type.FullName switch
-            {
-                "System.SByte" => "sbyte",
-                "System.Byte" => "byte",
-                "System.Int16" => "short",
-                "System.UInt16" => "ushort",
-                "System.Int32" => "int",
-                "System.UInt32" => "uint",
-                "System.Int64" => "long",
-                "System.UInt64" => "ulong",
-                "System.IntPtr" => "nint",
-                "System.UIntPtr" => "nuint",
-                "System.Single" => "float",
-                "System.Double" => "double",
-                "System.Decimal" => "decimal",
-                "System.Boolean" => "bool",
-                "System.Char" => "char",
-                "System.String" => "string",
-                "System.Object" => "object",
-                _ => type.Name
-            };
+            return _builtinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
         }
     }
 }

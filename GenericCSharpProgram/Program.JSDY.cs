@@ -688,7 +688,7 @@ public partial class Algorithms
                         break;
                     } else {
                         AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
-                        sb.Append(',').Append(' ');
+                        sb.Append(", ");
 
                         // TRest should be a ValueTuple!
                         var nextTuple = genericArgs[7];
@@ -713,7 +713,7 @@ public partial class Algorithms
                 for (int i = 0; i < n; i += 1)
                 {
                     AppendType(sb, genericArgs[i]);
-                    sb.Append(',').Append(' ');
+                    sb.Append(", ");
                 }
 
                 AppendType(sb, genericArgs[n]);

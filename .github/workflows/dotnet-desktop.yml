@@ -24,7 +24,7 @@ jobs:
           zip -r "GenericCSharpProgram.Algorithms.zip.Algorithms" "./GenericCSharpProgram/BenchmarkDotNet.Artifacts/"
       - name: Set Release version env variable
         run: |
-          echo "RELEASE_VERSION=$(date "+%y.%m.%d.%H:%M")" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(date "+%y.%m.%d")" >> $GITHUB_ENV
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:

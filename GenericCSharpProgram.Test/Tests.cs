@@ -19,6 +19,10 @@ public class Tests
     [Test] public static void ModerateType_JSDY_OPT3_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
     [Test] public static void CrazyType_JSDY_OPT3_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
 
+    [Test] public static void SimpleType_JSDY_OPT4_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
+    [Test] public static void ModerateType_JSDY_OPT4_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
+    [Test] public static void CrazyType_JSDY_OPT4_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
+
     [Test] public static void SimpleType_TML_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_TML);
     [Test] public static void ModerateType_TML_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_TML);
     [Test] public static void CrazyType_TML_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_TML);
@@ -55,6 +59,7 @@ public class Tests
         Validate(call(typeof(List<Func<List<Dictionary<List<int>, List<int[,,]>>>, List<(List<int>, List<int[]>)>>>)));
         Validate(call(typeof(List<List<List<Dictionary<List<Dictionary<int, IList<Dictionary<int, bool>>>>, int>>>>)));
         Validate(call(typeof(List<(int, float, (List<Func<List<Dictionary<List<int?>, List<int?[,,]>>>, List<(List<int>, List<int[]>)?>>>, List<int[,,][,][,,,,]>))?>)));
+        Validate(call(typeof((int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int))));
     }
 
     private static void Validate(string match, [CallerArgumentExpression(nameof(match))] string sourceType = "")

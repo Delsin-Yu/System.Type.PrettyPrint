@@ -692,7 +692,7 @@ public partial class Algorithms
             {
                 sb.Append('(');
                 while (true) {
-                    Debug.Assert(genericArgs.Length is > 0 and <= 8);
+                    Debug.Assert(genericArgs.Length > 0 && genericArgs.Length <= 8);
 
                     // This is a hard coded tuple element length check,
                     // since the 8th tuple element(TRest) must be another nested ValueTuple.

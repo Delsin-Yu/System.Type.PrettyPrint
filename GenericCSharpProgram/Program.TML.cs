@@ -3,12 +3,13 @@ using BenchmarkDotNet.Attributes;
 
 namespace GenericCSharpProgram;
 
-public partial class Program
+public partial class Algorithms
 {
     [Benchmark] public void SimpleType_TML() => SimpleType(ConstructTypeName_TML);
     [Benchmark] public void ModerateType_TML() => ModerateType(ConstructTypeName_TML);
     [Benchmark] public void CrazyType_TML() => CrazyType(ConstructTypeName_TML);
-    private static string ConstructTypeName_TML(Type type)
+
+    public static string ConstructTypeName_TML(Type type)
     {
         var stringBuilder = new StringBuilder();
         GetTypeNameByType(stringBuilder, type);

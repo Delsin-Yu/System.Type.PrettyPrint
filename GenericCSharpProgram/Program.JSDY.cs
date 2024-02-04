@@ -3,7 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace GenericCSharpProgram;
 
-public partial class Program
+public partial class Algorithms
 {
     [Benchmark] public void SimpleType_JSDY() => SimpleType(ConstructTypeName_JSDY);
     [Benchmark] public void ModerateType_JSDY() => ModerateType(ConstructTypeName_JSDY);
@@ -19,8 +19,9 @@ public partial class Program
     [Benchmark] public void SimpleType_JSDY_OPT3() => SimpleType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void CrazyType_JSDY_OPT3() => CrazyType(ConstructTypeName_JSDY_OPT3);
+    
 
-    private static string ConstructTypeName_JSDY(Type type)
+    public static string ConstructTypeName_JSDY(Type type)
     {
         if (type.IsArray || type.IsGenericType)
         {
@@ -148,7 +149,7 @@ public partial class Program
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder;
-    private static string ConstructTypeName_JSDY_OPT(Type type)
+    public static string ConstructTypeName_JSDY_OPT(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
         {
@@ -281,7 +282,7 @@ public partial class Program
 
 
     [ThreadStatic] private static StringBuilder _stringBuilder2;
-    private static string ConstructTypeName_JSDY_OPT2(Type type)
+    public static string ConstructTypeName_JSDY_OPT2(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
         {
@@ -421,7 +422,7 @@ public partial class Program
 
 
     [ThreadStatic] private static StringBuilder _stringBuilder3;
-    private static string ConstructTypeName_JSDY_OPT3(Type type)
+    public static string ConstructTypeName_JSDY_OPT3(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
         {

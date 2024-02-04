@@ -26,13 +26,13 @@ jobs:
           name: Benchmark.Net Benchmark
           tool: "benchmarkdotnet"
           output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Algorithms-report-full-compressed.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
           auto-push: true
           # Show alert with commit comment on detecting possible performance regression
           alert-threshold: "200%"
           comment-on-alert: true
           fail-on-alert: true
-          alert-comment-cc-users: "@ktrz"
+          alert-comment-cc-users: "@Zerxz"
 
       - name: Store benchmark result - separate results repo
         uses: rhysd/github-action-benchmark@v1
@@ -40,10 +40,10 @@ jobs:
           name: Benchmark.Net Benchmark
           tool: "benchmarkdotnet"
           output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Algorithms-report-full-compressed.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{github.token }}
           auto-push: true
           # Show alert with commit comment on detecting possible performance regression
           alert-threshold: "200%"
           comment-on-alert: true
           fail-on-alert: true
-          alert-comment-cc-users: "@ktrz"
+          alert-comment-cc-users: "@Zerxz"

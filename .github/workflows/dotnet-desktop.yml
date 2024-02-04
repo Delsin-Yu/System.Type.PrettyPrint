@@ -25,7 +25,7 @@ jobs:
         with:
           name: Benchmark.Net Benchmark
           tool: 'benchmarkdotnet'
-          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Program-report.html
+          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Benchmarks-report-full-compressed.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           # Show alert with commit comment on detecting possible performance regression
@@ -39,7 +39,7 @@ jobs:
         with:
           name: Benchmark.Net Benchmark
           tool: 'benchmarkdotnet'
-          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Program-report.html
+          output-file-path: GenericCSharpProgram/BenchmarkDotNet.Artifacts/results/GenericCSharpProgram.Benchmarks-report-full-compressed.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           # Show alert with commit comment on detecting possible performance regression

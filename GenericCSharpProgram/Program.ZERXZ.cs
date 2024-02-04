@@ -8,7 +8,9 @@ public partial class Program
     [Benchmark] public void SimpleType_ZERXZ() => SimpleType(ConstructTypeName_ZERXZ);
     [Benchmark] public void ModerateType_ZERXZ() => ModerateType(ConstructTypeName_ZERXZ);
     [Benchmark] public void CrazyType_ZERXZ() => CrazyType(ConstructTypeName_ZERXZ);
-
+    [Benchmark] public void SimpleType_ZERXZ_OPT() => SimpleType(ConstructTypeName_ZERXZ_OPT);
+    [Benchmark] public void ModerateType_ZERXZ_OPT() => ModerateType(ConstructTypeName_ZERXZ_OPT);
+    [Benchmark] public void CrazyType_ZERXZ_OPT() => CrazyType(ConstructTypeName_ZERXZ_OPT);
 
     public static string ConstructTypeName_ZERXZ(Type type)
     {

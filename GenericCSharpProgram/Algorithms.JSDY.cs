@@ -654,9 +654,9 @@ public partial class Algorithms
                 while (true)
                 {
                     //append bracket with rank
-                    var rank = type.GetArrayRank() - 1;
+                    var rank = type.GetArrayRank();
                     sb.Append('[');
-                    sb.Append(',', rank);
+                    sb.Append(',', rank - 1);
                     sb.Append(']');
                     //recursive call
                     var elementType = type.GetElementType()!;

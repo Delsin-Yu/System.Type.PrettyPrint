@@ -4,37 +4,44 @@ namespace GenericCSharpProgram.Test;
 
 public class Tests
 {
-    [Test] public static void SimpleType_JSDY_Test()       => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY);
-    [Test] public static void ModerateType_JSDY_Test()     => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY);
-    [Test] public static void CrazyType_JSDY_Test()        => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY);
-    [Test] public static void SimpleType_JSDY_OPT_Test()   => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT);
+    [Test] public static void SimpleType_JSDY_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY);
+    [Test] public static void ModerateType_JSDY_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY);
+    [Test] public static void CrazyType_JSDY_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY);
+    [Test] public static void SimpleType_JSDY_OPT_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT);
     [Test] public static void ModerateType_JSDY_OPT_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT);
-    [Test] public static void CrazyType_JSDY_OPT_Test()    => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT);
+    [Test] public static void CrazyType_JSDY_OPT_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT);
 
-    [Test] public static void SimpleType_JSDY_OPT2_Test()   => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT2);
+    [Test] public static void SimpleType_JSDY_OPT2_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT2);
     [Test] public static void ModerateType_JSDY_OPT2_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT2);
-    [Test] public static void CrazyType_JSDY_OPT2_Test()    => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT2);
+    [Test] public static void CrazyType_JSDY_OPT2_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT2);
 
-    [Test] public static void SimpleType_JSDY_OPT3_Test()   => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
+    [Test] public static void SimpleType_JSDY_OPT3_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
     [Test] public static void ModerateType_JSDY_OPT3_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
-    [Test] public static void CrazyType_JSDY_OPT3_Test()    => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
+    [Test] public static void CrazyType_JSDY_OPT3_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT3);
 
-    [Test] public static void SimpleType_JSDY_OPT4_Test()   => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
+    [Test] public static void SimpleType_JSDY_OPT4_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
     [Test] public static void ModerateType_JSDY_OPT4_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
-    [Test] public static void CrazyType_JSDY_OPT4_Test()    => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
-    [Test] public static void SimpleType_JSDY_OPT5_Test()   => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT5);
-    [Test] public static void ModerateType_JSDY_OPT5_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT5);
-    [Test] public static void CrazyType_JSDY_OPT5_Test()    => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT5);
-    [Test] public static void SimpleType_TML_Test()         => SimpleTypeValidate(Algorithms.ConstructTypeName_TML);
-    [Test] public static void ModerateType_TML_Test()       => ModerateTypeValidate(Algorithms.ConstructTypeName_TML);
-    [Test] public static void CrazyType_TML_Test()          => CrazyTypeValidate(Algorithms.ConstructTypeName_TML);
+    [Test] public static void CrazyType_JSDY_OPT4_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT4);
 
-    [Test] public static void SimpleType_ZERXZ_Test()       => SimpleTypeValidate(Algorithms.ConstructTypeName_ZERXZ);
-    [Test] public static void ModerateType_ZERXZ_Test()     => ModerateTypeValidate(Algorithms.ConstructTypeName_ZERXZ);
-    [Test] public static void CrazyType_ZERXZ_Test()        => CrazyTypeValidate(Algorithms.ConstructTypeName_ZERXZ);
-    [Test] public static void SimpleType_ZERXZ_OPT_Test()   => SimpleTypeValidate(Algorithms.ConstructTypeName_ZERXZ_OPT);
+    [Test] public static void SimpleType_JSDY_OPT5_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT5);
+    [Test] public static void ModerateType_JSDY_OPT5_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT5);
+    [Test] public static void CrazyType_JSDY_OPT5_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT5);
+
+    [Test] public static void SimpleType_JSDY_OPT6_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT6);
+    [Test] public static void ModerateType_JSDY_OPT6_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT6);
+    [Test] public static void CrazyType_JSDY_OPT6_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_JSDY_OPT6);
+
+    [Test] public static void SimpleType_TML_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_TML);
+    [Test] public static void ModerateType_TML_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_TML);
+    [Test] public static void CrazyType_TML_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_TML);
+
+    [Test] public static void SimpleType_ZERXZ_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_ZERXZ);
+    [Test] public static void ModerateType_ZERXZ_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_ZERXZ);
+    [Test] public static void CrazyType_ZERXZ_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_ZERXZ);
+
+    [Test] public static void SimpleType_ZERXZ_OPT_Test() => SimpleTypeValidate(Algorithms.ConstructTypeName_ZERXZ_OPT);
     [Test] public static void ModerateType_ZERXZ_OPT_Test() => ModerateTypeValidate(Algorithms.ConstructTypeName_ZERXZ_OPT);
-    [Test] public static void CrazyType_ZERXZ_OPT_Test()    => CrazyTypeValidate(Algorithms.ConstructTypeName_ZERXZ_OPT);
+    [Test] public static void CrazyType_ZERXZ_OPT_Test() => CrazyTypeValidate(Algorithms.ConstructTypeName_ZERXZ_OPT);
 
 
     private static void SimpleTypeValidate(Func<Type, string> call)

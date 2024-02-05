@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
+using StringBuilder = System.Text.StringBuilder;
 
 namespace GenericCSharpProgram;
 
@@ -10,15 +11,15 @@ public partial class Algorithms
     [Benchmark] public void SimpleType_JSDY()   => SimpleType(ConstructTypeName_JSDY);
     [Benchmark] public void ModerateType_JSDY() => ModerateType(ConstructTypeName_JSDY);
     [Benchmark] public void CrazyType_JSDY()    => CrazyType(ConstructTypeName_JSDY);
-    
+
     [Benchmark] public void SimpleType_JSDY_OPT()   => SimpleType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void ModerateType_JSDY_OPT() => ModerateType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void CrazyType_JSDY_OPT()    => CrazyType(ConstructTypeName_JSDY_OPT);
-    
+
     [Benchmark] public void SimpleType_JSDY_OPT2()   => SimpleType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void ModerateType_JSDY_OPT2() => ModerateType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void CrazyType_JSDY_OPT2()    => CrazyType(ConstructTypeName_JSDY_OPT2);
-    
+
     [Benchmark] public void SimpleType_JSDY_OPT3()   => SimpleType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void CrazyType_JSDY_OPT3()    => CrazyType(ConstructTypeName_JSDY_OPT3);
@@ -742,15 +743,14 @@ public partial class Algorithms
             if (type.IsArray)
             {
                 AppendArray(sb, type);
+                return;
             }
-            else if (type.IsGenericType)
+            if (type.IsGenericType)
             {
                 AppendGeneric(sb, type);
+                return;
             }
-            else
-            {
-                sb.Append(GetSimpleTypeName(type));
-            }
+            sb.Append(GetSimpleTypeName(type));
         }
 
         static Type GetRootElementType(Type type)
@@ -778,8 +778,7 @@ public partial class Algorithms
 
             static void AppendArrayRecursive(StringBuilder sb, Type type)
             {
-                while (type! is
-                       { IsArray: true, HasElementType: true })
+                while (type!.HasElementType && type.IsArray)
                 {
                     //append bracket with rank
                     sb.Append('[');
@@ -815,11 +814,7 @@ public partial class Algorithms
 
                     // TRest should be a ValueTuple!
                     var nextTuple = genericArgs[7];
-                    if (nextTuple is
-                        { IsGenericType: true })
-                    {
-                        genericArgs = nextTuple.GenericTypeArguments;
-                    }
+                    genericArgs = nextTuple.GenericTypeArguments;
                 }
 
                 AppendParamTypes(sb, genericArgs);
@@ -834,6 +829,7 @@ public partial class Algorithms
             AppendParamTypes(sb, genericArgs);
             sb.Append('>');
             return;
+
 
             static void AppendParamTypes(StringBuilder sb, ReadOnlySpan<Type> genericArgs)
             {
@@ -851,7 +847,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return BuiltinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
+            return BuiltinTypeNameDict.GetValueOrDefault(type, type.Name);
         }
     }
 }

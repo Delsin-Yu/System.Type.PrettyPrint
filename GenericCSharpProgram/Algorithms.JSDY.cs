@@ -7,29 +7,29 @@ namespace GenericCSharpProgram;
 
 public partial class Algorithms
 {
-    [Benchmark] public void SimpleType_JSDY() => SimpleType(ConstructTypeName_JSDY);
+    [Benchmark] public void SimpleType_JSDY()   => SimpleType(ConstructTypeName_JSDY);
     [Benchmark] public void ModerateType_JSDY() => ModerateType(ConstructTypeName_JSDY);
-    [Benchmark] public void CrazyType_JSDY() => CrazyType(ConstructTypeName_JSDY);
-
-    [Benchmark] public void SimpleType_JSDY_OPT() => SimpleType(ConstructTypeName_JSDY_OPT);
+    [Benchmark] public void CrazyType_JSDY()    => CrazyType(ConstructTypeName_JSDY);
+    
+    [Benchmark] public void SimpleType_JSDY_OPT()   => SimpleType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void ModerateType_JSDY_OPT() => ModerateType(ConstructTypeName_JSDY_OPT);
-    [Benchmark] public void CrazyType_JSDY_OPT() => CrazyType(ConstructTypeName_JSDY_OPT);
-
-    [Benchmark] public void SimpleType_JSDY_OPT2() => SimpleType(ConstructTypeName_JSDY_OPT2);
+    [Benchmark] public void CrazyType_JSDY_OPT()    => CrazyType(ConstructTypeName_JSDY_OPT);
+    
+    [Benchmark] public void SimpleType_JSDY_OPT2()   => SimpleType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void ModerateType_JSDY_OPT2() => ModerateType(ConstructTypeName_JSDY_OPT2);
-    [Benchmark] public void CrazyType_JSDY_OPT2() => CrazyType(ConstructTypeName_JSDY_OPT2);
-
-    [Benchmark] public void SimpleType_JSDY_OPT3() => SimpleType(ConstructTypeName_JSDY_OPT3);
+    [Benchmark] public void CrazyType_JSDY_OPT2()    => CrazyType(ConstructTypeName_JSDY_OPT2);
+    
+    [Benchmark] public void SimpleType_JSDY_OPT3()   => SimpleType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
-    [Benchmark] public void CrazyType_JSDY_OPT3() => CrazyType(ConstructTypeName_JSDY_OPT3);
+    [Benchmark] public void CrazyType_JSDY_OPT3()    => CrazyType(ConstructTypeName_JSDY_OPT3);
 
 
-    [Benchmark] public void SimpleType_JSDY_OPT4() => SimpleType(ConstructTypeName_JSDY_OPT4);
+    [Benchmark] public void SimpleType_JSDY_OPT4()   => SimpleType(ConstructTypeName_JSDY_OPT4);
     [Benchmark] public void ModerateType_JSDY_OPT4() => ModerateType(ConstructTypeName_JSDY_OPT4);
-    [Benchmark] public void CrazyType_JSDY_OPT4() => CrazyType(ConstructTypeName_JSDY_OPT4);
-    [Benchmark] public void SimpleType_JSDY_OPT5() => SimpleType(ConstructTypeName_JSDY_OPT5);
+    [Benchmark] public void CrazyType_JSDY_OPT4()    => CrazyType(ConstructTypeName_JSDY_OPT4);
+    [Benchmark] public void SimpleType_JSDY_OPT5()   => SimpleType(ConstructTypeName_JSDY_OPT5);
     [Benchmark] public void ModerateType_JSDY_OPT5() => ModerateType(ConstructTypeName_JSDY_OPT5);
-    [Benchmark] public void CrazyType_JSDY_OPT5() => CrazyType(ConstructTypeName_JSDY_OPT5);
+    [Benchmark] public void CrazyType_JSDY_OPT5()    => CrazyType(ConstructTypeName_JSDY_OPT5);
 
     public static string ConstructTypeName_JSDY(Type type)
     {
@@ -94,7 +94,7 @@ public partial class Algorithms
         static void BuildGeneric(StringBuilder sb, Type type)
         {
             var genericDefinitionFullName = type.GetGenericTypeDefinition().FullName ?? string.Empty;
-            var genericArgs = type.GenericTypeArguments;
+            var genericArgs               = type.GenericTypeArguments;
 
             //Nullable
             if (genericDefinitionFullName == "System.Nullable`1")
@@ -135,26 +135,24 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            {
-                "System.SByte" => "sbyte",
-                "System.Byte" => "byte",
-                "System.Int16" => "short",
-                "System.UInt16" => "ushort",
-                "System.Int32" => "int",
-                "System.UInt32" => "uint",
-                "System.Int64" => "long",
-                "System.UInt64" => "ulong",
-                "System.IntPtr" => "nint",
-                "System.UIntPtr" => "nuint",
-                "System.Single" => "float",
-                "System.Double" => "double",
-                "System.Decimal" => "decimal",
-                "System.Boolean" => "bool",
-                "System.Char" => "char",
-                "System.String" => "string",
-                "System.Object" => "object",
-                _ => type.Name
-            };
+            { "System.SByte"   => "sbyte",
+              "System.Byte"    => "byte",
+              "System.Int16"   => "short",
+              "System.UInt16"  => "ushort",
+              "System.Int32"   => "int",
+              "System.UInt32"  => "uint",
+              "System.Int64"   => "long",
+              "System.UInt64"  => "ulong",
+              "System.IntPtr"  => "nint",
+              "System.UIntPtr" => "nuint",
+              "System.Single"  => "float",
+              "System.Double"  => "double",
+              "System.Decimal" => "decimal",
+              "System.Boolean" => "bool",
+              "System.Char"    => "char",
+              "System.String"  => "string",
+              "System.Object"  => "object",
+              _                => type.Name };
         }
     }
 
@@ -226,7 +224,7 @@ public partial class Algorithms
         static void AppendGeneric(StringBuilder sb, Type type)
         {
             var genericDefinitionFullName = type.GetGenericTypeDefinition().FullName ?? string.Empty;
-            var genericArgs = type.GenericTypeArguments;
+            var genericArgs               = type.GenericTypeArguments;
 
             //Nullable
             if (genericDefinitionFullName == "System.Nullable`1")
@@ -268,26 +266,24 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            {
-                "System.SByte" => "sbyte",
-                "System.Byte" => "byte",
-                "System.Int16" => "short",
-                "System.UInt16" => "ushort",
-                "System.Int32" => "int",
-                "System.UInt32" => "uint",
-                "System.Int64" => "long",
-                "System.UInt64" => "ulong",
-                "System.IntPtr" => "nint",
-                "System.UIntPtr" => "nuint",
-                "System.Single" => "float",
-                "System.Double" => "double",
-                "System.Decimal" => "decimal",
-                "System.Boolean" => "bool",
-                "System.Char" => "char",
-                "System.String" => "string",
-                "System.Object" => "object",
-                _ => type.Name
-            };
+            { "System.SByte"   => "sbyte",
+              "System.Byte"    => "byte",
+              "System.Int16"   => "short",
+              "System.UInt16"  => "ushort",
+              "System.Int32"   => "int",
+              "System.UInt32"  => "uint",
+              "System.Int64"   => "long",
+              "System.UInt64"  => "ulong",
+              "System.IntPtr"  => "nint",
+              "System.UIntPtr" => "nuint",
+              "System.Single"  => "float",
+              "System.Double"  => "double",
+              "System.Decimal" => "decimal",
+              "System.Boolean" => "bool",
+              "System.Char"    => "char",
+              "System.String"  => "string",
+              "System.Object"  => "object",
+              _                => type.Name };
         }
     }
 
@@ -365,9 +361,9 @@ public partial class Algorithms
 
         static void AppendGeneric(StringBuilder sb, Type type)
         {
-            var fullName = type.GetGenericTypeDefinition().FullName;
+            var                fullName                  = type.GetGenericTypeDefinition().FullName;
             ReadOnlySpan<char> genericDefinitionFullName = fullName != null ? fullName.AsSpan() : ReadOnlySpan<char>.Empty;
-            var genericArgs = type.GenericTypeArguments;
+            var                genericArgs               = type.GenericTypeArguments;
 
             //Nullable
             if (genericDefinitionFullName == "System.Nullable`1")
@@ -409,26 +405,24 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            {
-                "System.SByte" => "sbyte",
-                "System.Byte" => "byte",
-                "System.Int16" => "short",
-                "System.UInt16" => "ushort",
-                "System.Int32" => "int",
-                "System.UInt32" => "uint",
-                "System.Int64" => "long",
-                "System.UInt64" => "ulong",
-                "System.IntPtr" => "nint",
-                "System.UIntPtr" => "nuint",
-                "System.Single" => "float",
-                "System.Double" => "double",
-                "System.Decimal" => "decimal",
-                "System.Boolean" => "bool",
-                "System.Char" => "char",
-                "System.String" => "string",
-                "System.Object" => "object",
-                _ => type.Name
-            };
+            { "System.SByte"   => "sbyte",
+              "System.Byte"    => "byte",
+              "System.Int16"   => "short",
+              "System.UInt16"  => "ushort",
+              "System.Int32"   => "int",
+              "System.UInt32"  => "uint",
+              "System.Int64"   => "long",
+              "System.UInt64"  => "ulong",
+              "System.IntPtr"  => "nint",
+              "System.UIntPtr" => "nuint",
+              "System.Single"  => "float",
+              "System.Double"  => "double",
+              "System.Decimal" => "decimal",
+              "System.Boolean" => "bool",
+              "System.Char"    => "char",
+              "System.String"  => "string",
+              "System.Object"  => "object",
+              _                => type.Name };
         }
     }
 
@@ -502,9 +496,9 @@ public partial class Algorithms
 
         static void AppendGeneric(StringBuilder sb, Type type)
         {
-            var fullName = type.GetGenericTypeDefinition().FullName;
-            ReadOnlySpan<char> genericDefinitionFullName = fullName != null ? fullName.AsSpan() : ReadOnlySpan<char>.Empty;
-            var genericArgs = type.GenericTypeArguments;
+            var fullName                  = type.GetGenericTypeDefinition().FullName;
+            var genericDefinitionFullName = fullName != null ? fullName.AsSpan() : ReadOnlySpan<char>.Empty;
+            var genericArgs               = type.GenericTypeArguments;
 
             //Nullable
             if (genericDefinitionFullName == "System.Nullable`1")
@@ -546,98 +540,55 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            {
-                "System.SByte" => "sbyte",
-                "System.Byte" => "byte",
-                "System.Int16" => "short",
-                "System.UInt16" => "ushort",
-                "System.Int32" => "int",
-                "System.UInt32" => "uint",
-                "System.Int64" => "long",
-                "System.UInt64" => "ulong",
-                "System.IntPtr" => "nint",
-                "System.UIntPtr" => "nuint",
-                "System.Single" => "float",
-                "System.Double" => "double",
-                "System.Decimal" => "decimal",
-                "System.Boolean" => "bool",
-                "System.Char" => "char",
-                "System.String" => "string",
-                "System.Object" => "object",
-                _ => type.Name
-            };
+            { "System.SByte"   => "sbyte",
+              "System.Byte"    => "byte",
+              "System.Int16"   => "short",
+              "System.UInt16"  => "ushort",
+              "System.Int32"   => "int",
+              "System.UInt32"  => "uint",
+              "System.Int64"   => "long",
+              "System.UInt64"  => "ulong",
+              "System.IntPtr"  => "nint",
+              "System.UIntPtr" => "nuint",
+              "System.Single"  => "float",
+              "System.Double"  => "double",
+              "System.Decimal" => "decimal",
+              "System.Boolean" => "bool",
+              "System.Char"    => "char",
+              "System.String"  => "string",
+              "System.Object"  => "object",
+              _                => type.Name };
         }
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder4;
 
-    private static readonly HashSet<Type> _tupleTypes = new HashSet<Type>()
-    {
-        // ValueTuple with only one element should be treated as normal generic type.
-        //typeof(ValueTuple<>),
-        typeof(ValueTuple<,>),
-        typeof(ValueTuple<,,>),
-        typeof(ValueTuple<,,,>),
-        typeof(ValueTuple<,,,,>),
-        typeof(ValueTuple<,,,,,>),
-        typeof(ValueTuple<,,,,,,>),
-        typeof(ValueTuple<,,,,,,,>),
-    };
-
-    private static readonly Dictionary<Type, string> _builtinTypeNameDict = new()
-    {
-        {
-            typeof(sbyte), "sbyte"
-        },
-        {
-            typeof(byte), "byte"
-        },
-        {
-            typeof(short), "short"
-        },
-        {
-            typeof(ushort), "ushort"
-        },
-        {
-            typeof(int), "int"
-        },
-        {
-            typeof(uint), "uint"
-        },
-        {
-            typeof(long), "long"
-        },
-        {
-            typeof(ulong), "ulong"
-        },
-        {
-            typeof(nint), "nint"
-        },
-        {
-            typeof(nuint), "nuint"
-        },
-        {
-            typeof(float), "float"
-        },
-        {
-            typeof(double), "double"
-        },
-        {
-            typeof(decimal), "decimal"
-        },
-        {
-            typeof(bool), "bool"
-        },
-        {
-            typeof(char), "char"
-        },
-        {
-            typeof(string), "string"
-        },
-        {
-            typeof(object), "object"
-        },
-    };
+    private static readonly HashSet<Type> TupleTypes =
+    [ typeof(ValueTuple<,>),
+      typeof(ValueTuple<,,>),
+      typeof(ValueTuple<,,,>),
+      typeof(ValueTuple<,,,,>),
+      typeof(ValueTuple<,,,,,>),
+      typeof(ValueTuple<,,,,,,>),
+      typeof(ValueTuple<,,,,,,,>) ];
+    private static readonly IReadOnlyDictionary<Type, string> BuiltinTypeNameDict = new Dictionary<Type, string>()
+    { { typeof(sbyte), "sbyte" },
+      { typeof(byte), "byte" },
+      { typeof(short), "short" },
+      { typeof(ushort), "ushort" },
+      { typeof(int), "int" },
+      { typeof(uint), "uint" },
+      { typeof(long), "long" },
+      { typeof(ulong), "ulong" },
+      { typeof(nint), "nint" },
+      { typeof(nuint), "nuint" },
+      { typeof(float), "float" },
+      { typeof(double), "double" },
+      { typeof(decimal), "decimal" },
+      { typeof(bool), "bool" },
+      { typeof(char), "char" },
+      { typeof(string), "string" },
+      { typeof(object), "object" } };
 
 
     public static string ConstructTypeName_JSDY_OPT4(Type type)
@@ -688,8 +639,10 @@ public partial class Algorithms
                 while (true)
                 {
                     //append bracket with rank
-                    var rank = type.GetArrayRank() -1;
-                    sb.Append($"[{new string(',',rank)}]");
+                    var rank = type.GetArrayRank() - 1;
+                    sb.Append('[');
+                    sb.Append(',', rank);
+                    sb.Append(']');
                     //recursive call
                     var elementType = type.GetElementType()!;
                     if (elementType.IsArray)
@@ -706,7 +659,7 @@ public partial class Algorithms
         static void AppendGeneric(StringBuilder sb, Type type)
         {
 
-            var genericArgs = type.GenericTypeArguments;
+            var genericArgs       = type.GenericTypeArguments;
             var genericDefinition = type.GetGenericTypeDefinition();
             //Nullable
             if (genericDefinition == typeof(Nullable<>))
@@ -717,7 +670,7 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            if (_tupleTypes.Contains(genericDefinition))
+            if (TupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
                 while (true)
@@ -766,11 +719,10 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return _builtinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
+            return BuiltinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
         }
     }
     [ThreadStatic] private static StringBuilder _stringBuilder5;
-    public static readonly string Comma = Unsafe.As<string>(", ");
     public static string ConstructTypeName_JSDY_OPT5(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -787,11 +739,11 @@ public partial class Algorithms
 
         static void AppendType(StringBuilder sb, Type type)
         {
-            if(type.IsArray)
+            if (type.IsArray)
             {
                 AppendArray(sb, type);
             }
-            else if(type.IsGenericType)
+            else if (type.IsGenericType)
             {
                 AppendGeneric(sb, type);
             }
@@ -804,7 +756,7 @@ public partial class Algorithms
         static Type GetRootElementType(Type type)
         {
             var elementType = type;
-            while (elementType is { HasElementType: true })
+            while (elementType!.HasElementType)
             {
                 elementType = elementType.GetElementType();
             }
@@ -821,24 +773,20 @@ public partial class Algorithms
 
             AppendType(sb, elementType);
 
-            var typeName = type.Name.AsSpan();
-            var typeArrayIndex = typeName.IndexOf('[');
-            var typeArrayPart = typeName[typeArrayIndex..];
-            for (var i = typeArrayPart.Length - 1; i >= 0; i--)
+            //append brackets
+            AppendArrayRecursive(sb, type);
+
+            static void AppendArrayRecursive(StringBuilder sb, Type type)
             {
-                var c = typeArrayPart[i];
-                if (c == '[')
+                while (type! is
+                       { IsArray: true, HasElementType: true })
                 {
-                    sb.Append(']');
-                    typeArrayPart = typeArrayPart[..i];
-                }
-                else if (c == ']')
-                {
+                    //append bracket with rank
                     sb.Append('[');
-                    var newIndex = typeArrayPart.LastIndexOf('[') + 1;
-                    sb.Append(',', i - newIndex);
-                    typeArrayPart = typeArrayPart[..i];
-                    i = newIndex;
+                    sb.Append(',', type.GetArrayRank() - 1);
+                    sb.Append(']');
+                    //recursive call
+                    type = type.GetElementType();
                 }
             }
         }
@@ -846,7 +794,7 @@ public partial class Algorithms
         static void AppendGeneric(StringBuilder sb, Type type)
         {
 
-            var genericArgs = type.GenericTypeArguments;
+            var genericArgs       = type.GenericTypeArguments;
             var genericDefinition = type.GetGenericTypeDefinition();
             //Nullable
             if (genericDefinition == typeof(Nullable<>))
@@ -857,17 +805,18 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            if (_tupleTypes.Contains(genericDefinition))
+            if (TupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
                 while (genericArgs.Length == 8)
                 {
                     AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
-                    sb.Append(Comma);
+                    sb.Append(", ");
 
                     // TRest should be a ValueTuple!
                     var nextTuple = genericArgs[7];
-                    if (nextTuple.IsGenericType)
+                    if (nextTuple is
+                        { IsGenericType: true })
                     {
                         genericArgs = nextTuple.GenericTypeArguments;
                     }
@@ -884,6 +833,7 @@ public partial class Algorithms
             sb.Append('<');
             AppendParamTypes(sb, genericArgs);
             sb.Append('>');
+            return;
 
             static void AppendParamTypes(StringBuilder sb, ReadOnlySpan<Type> genericArgs)
             {
@@ -893,7 +843,7 @@ public partial class Algorithms
                     AppendType(sb, genericArgs[i]);
                     if (i < lastIndex)
                     {
-                        sb.Append(Comma);
+                        sb.Append(", ");
                     }
                 }
             }
@@ -901,7 +851,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return _builtinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
+            return BuiltinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
         }
     }
 }

@@ -918,15 +918,14 @@ public partial class Algorithms
 
             static void AppendArrayRecursive(StringBuilder sb, Type type)
             {
-                if (!type.HasElementType || !type.IsArray)
-                {
-                    return;
-                }
                 sb.Append('[');
                 sb.Append(',', type.GetArrayRank() - 1);
                 sb.Append(']');
                 //recursive call
-                AppendArrayRecursive(sb, type.GetElementType());
+                if (type.HasElementType)
+                {
+                    AppendArrayRecursive(sb, type.GetElementType());
+                }
             }
         }
 
@@ -968,7 +967,6 @@ public partial class Algorithms
                 sb.Append(", ");
                 genericArgs = genericArgs[7].GenericTypeArguments;
                 AppendTuple(sb, ref genericArgs);
-
             }
 
             static void AppendParamTypes(StringBuilder sb, ReadOnlySpan<Type> genericArgs)

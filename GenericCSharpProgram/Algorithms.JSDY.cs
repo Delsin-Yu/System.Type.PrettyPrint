@@ -11,15 +11,15 @@ public partial class Algorithms
     [Benchmark] public void SimpleType_JSDY()   => SimpleType(ConstructTypeName_JSDY);
     [Benchmark] public void ModerateType_JSDY() => ModerateType(ConstructTypeName_JSDY);
     [Benchmark] public void CrazyType_JSDY()    => CrazyType(ConstructTypeName_JSDY);
-
+    
     [Benchmark] public void SimpleType_JSDY_OPT()   => SimpleType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void ModerateType_JSDY_OPT() => ModerateType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void CrazyType_JSDY_OPT()    => CrazyType(ConstructTypeName_JSDY_OPT);
-
+    
     [Benchmark] public void SimpleType_JSDY_OPT2()   => SimpleType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void ModerateType_JSDY_OPT2() => ModerateType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void CrazyType_JSDY_OPT2()    => CrazyType(ConstructTypeName_JSDY_OPT2);
-
+    
     [Benchmark] public void SimpleType_JSDY_OPT3()   => SimpleType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void CrazyType_JSDY_OPT3()    => CrazyType(ConstructTypeName_JSDY_OPT3);
@@ -31,6 +31,9 @@ public partial class Algorithms
     [Benchmark] public void SimpleType_JSDY_OPT5()   => SimpleType(ConstructTypeName_JSDY_OPT5);
     [Benchmark] public void ModerateType_JSDY_OPT5() => ModerateType(ConstructTypeName_JSDY_OPT5);
     [Benchmark] public void CrazyType_JSDY_OPT5()    => CrazyType(ConstructTypeName_JSDY_OPT5);
+    [Benchmark] public void SimpleType_JSDY_OPT6()   => SimpleType(ConstructTypeName_JSDY_OPT6);
+    [Benchmark] public void ModerateType_JSDY_OPT6() => ModerateType(ConstructTypeName_JSDY_OPT6);
+    [Benchmark] public void CrazyType_JSDY_OPT6()    => CrazyType(ConstructTypeName_JSDY_OPT6);
 
     public static string ConstructTypeName_JSDY(Type type)
     {
@@ -813,8 +816,7 @@ public partial class Algorithms
                     sb.Append(", ");
 
                     // TRest should be a ValueTuple!
-                    var nextTuple = genericArgs[7];
-                    genericArgs = nextTuple.GenericTypeArguments;
+                    genericArgs = genericArgs[7].GenericTypeArguments;
                 }
 
                 AppendParamTypes(sb, genericArgs);
@@ -830,6 +832,133 @@ public partial class Algorithms
             sb.Append('>');
             return;
 
+
+            static void AppendParamTypes(StringBuilder sb, ReadOnlySpan<Type> genericArgs)
+            {
+                var lastIndex = genericArgs.Length - 1;
+                for (int i = 0; i < genericArgs.Length; i++)
+                {
+                    AppendType(sb, genericArgs[i]);
+                    if (i < lastIndex)
+                    {
+                        sb.Append(", ");
+                    }
+                }
+            }
+        }
+
+        static string GetSimpleTypeName(Type type)
+        {
+            return BuiltinTypeNameDict.GetValueOrDefault(type, type.Name);
+        }
+    }
+    [ThreadStatic] private static StringBuilder _stringBuilder6;
+    public static string ConstructTypeName_JSDY_OPT6(Type type)
+    {
+        if (!type.IsArray && !type.IsGenericType)
+        {
+            return GetSimpleTypeName(type);
+        }
+
+        _stringBuilder6 ??= new StringBuilder(256);
+        var sb = _stringBuilder6;
+        AppendType(sb, type);
+        var result = sb.ToString();
+        _stringBuilder6.Clear();
+        return result;
+
+        static void AppendType(StringBuilder sb, Type type)
+        {
+            if (type.IsArray)
+            {
+                AppendArray(sb, type);
+                return;
+            }
+            if (type.IsGenericType)
+            {
+                AppendGeneric(sb, type);
+                return;
+            }
+            sb.Append(GetSimpleTypeName(type));
+        }
+
+        static Type GetRootElementType(Type type)
+        {
+            var elementType = type;
+            while (elementType!.HasElementType)
+            {
+                elementType = elementType.GetElementType();
+            }
+
+            return elementType;
+        }
+
+        static void AppendArray(StringBuilder sb, Type type)
+        {
+            //append inner most non-array element
+
+            var elementType = GetRootElementType(type);
+
+
+            AppendType(sb, elementType);
+
+            //append brackets
+            AppendArrayRecursive(sb, type);
+
+            static void AppendArrayRecursive(StringBuilder sb, Type type)
+            {
+                if (!type.HasElementType || !type.IsArray)
+                {
+                    return;
+                }
+                sb.Append('[');
+                sb.Append(',', type.GetArrayRank() - 1);
+                sb.Append(']');
+                //recursive call
+                AppendArrayRecursive(sb, type.GetElementType());
+            }
+        }
+
+        static void AppendGeneric(StringBuilder sb, Type type)
+        {
+
+            var genericArgs       = type.GenericTypeArguments;
+            var genericDefinition = type.GetGenericTypeDefinition();
+            //Nullable
+            if (genericDefinition == typeof(Nullable<>))
+            {
+                AppendType(sb, genericArgs[0]);
+                sb.Append('?');
+                return;
+            }
+
+            //ValueTuple
+            if (TupleTypes.Contains(genericDefinition))
+            {
+                sb.Append('(');
+                AppendTuple(sb, ref genericArgs);
+                AppendParamTypes(sb, genericArgs);
+                sb.Append(')');
+                return;
+            }
+
+            //normal generic
+            var typeName = type.Name.AsSpan();
+            sb.Append(typeName[..typeName.LastIndexOf('`')]);
+            sb.Append('<');
+            AppendParamTypes(sb, genericArgs);
+            sb.Append('>');
+            return;
+
+            static void AppendTuple(StringBuilder sb, ref Type[] genericArgs)
+            {
+                if (genericArgs.Length != 8) return;
+                AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
+                sb.Append(", ");
+                genericArgs = genericArgs[7].GenericTypeArguments;
+                AppendTuple(sb, ref genericArgs);
+
+            }
 
             static void AppendParamTypes(StringBuilder sb, ReadOnlySpan<Type> genericArgs)
             {

@@ -15,11 +15,11 @@ public partial class Algorithms
     [Benchmark] public void SimpleType_JSDY_OPT()   => SimpleType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void ModerateType_JSDY_OPT() => ModerateType(ConstructTypeName_JSDY_OPT);
     [Benchmark] public void CrazyType_JSDY_OPT()    => CrazyType(ConstructTypeName_JSDY_OPT);
-    
+
     [Benchmark] public void SimpleType_JSDY_OPT2()   => SimpleType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void ModerateType_JSDY_OPT2() => ModerateType(ConstructTypeName_JSDY_OPT2);
     [Benchmark] public void CrazyType_JSDY_OPT2()    => CrazyType(ConstructTypeName_JSDY_OPT2);
-    
+
     [Benchmark] public void SimpleType_JSDY_OPT3()   => SimpleType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void ModerateType_JSDY_OPT3() => ModerateType(ConstructTypeName_JSDY_OPT3);
     [Benchmark] public void CrazyType_JSDY_OPT3()    => CrazyType(ConstructTypeName_JSDY_OPT3);
@@ -139,24 +139,26 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            { "System.SByte"   => "sbyte",
-              "System.Byte"    => "byte",
-              "System.Int16"   => "short",
-              "System.UInt16"  => "ushort",
-              "System.Int32"   => "int",
-              "System.UInt32"  => "uint",
-              "System.Int64"   => "long",
-              "System.UInt64"  => "ulong",
-              "System.IntPtr"  => "nint",
-              "System.UIntPtr" => "nuint",
-              "System.Single"  => "float",
-              "System.Double"  => "double",
-              "System.Decimal" => "decimal",
-              "System.Boolean" => "bool",
-              "System.Char"    => "char",
-              "System.String"  => "string",
-              "System.Object"  => "object",
-              _                => type.Name };
+            { 
+            "System.SByte"   => "sbyte",
+            "System.Byte"    => "byte",
+            "System.Int16"   => "short",
+            "System.UInt16"  => "ushort",
+            "System.Int32"   => "int",
+            "System.UInt32"  => "uint",
+            "System.Int64"   => "long",
+            "System.UInt64"  => "ulong",
+            "System.IntPtr"  => "nint",
+            "System.UIntPtr" => "nuint",
+            "System.Single"  => "float",
+            "System.Double"  => "double",
+            "System.Decimal" => "decimal",
+            "System.Boolean" => "bool",
+            "System.Char"    => "char",
+            "System.String"  => "string",
+            "System.Object"  => "object",
+            _                => type.Name 
+            };
         }
     }
 
@@ -270,30 +272,29 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            { "System.SByte"   => "sbyte",
-              "System.Byte"    => "byte",
-              "System.Int16"   => "short",
-              "System.UInt16"  => "ushort",
-              "System.Int32"   => "int",
-              "System.UInt32"  => "uint",
-              "System.Int64"   => "long",
-              "System.UInt64"  => "ulong",
-              "System.IntPtr"  => "nint",
-              "System.UIntPtr" => "nuint",
-              "System.Single"  => "float",
-              "System.Double"  => "double",
-              "System.Decimal" => "decimal",
-              "System.Boolean" => "bool",
-              "System.Char"    => "char",
-              "System.String"  => "string",
-              "System.Object"  => "object",
-              _                => type.Name };
+            { 
+            "System.SByte"   => "sbyte",
+            "System.Byte"    => "byte",
+            "System.Int16"   => "short",
+            "System.UInt16"  => "ushort",
+            "System.Int32"   => "int",
+            "System.UInt32"  => "uint",
+            "System.Int64"   => "long",
+            "System.UInt64"  => "ulong",
+            "System.IntPtr"  => "nint",
+            "System.UIntPtr" => "nuint",
+            "System.Single"  => "float",
+            "System.Double"  => "double",
+            "System.Decimal" => "decimal",
+            "System.Boolean" => "bool",
+            "System.Char"    => "char",
+            "System.String"  => "string",
+            "System.Object"  => "object",
+            _                => type.Name 
+            };
         }
     }
-
-
     [ThreadStatic] private static StringBuilder _stringBuilder2;
-
     public static string ConstructTypeName_JSDY_OPT2(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)
@@ -409,24 +410,26 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            { "System.SByte"   => "sbyte",
-              "System.Byte"    => "byte",
-              "System.Int16"   => "short",
-              "System.UInt16"  => "ushort",
-              "System.Int32"   => "int",
-              "System.UInt32"  => "uint",
-              "System.Int64"   => "long",
-              "System.UInt64"  => "ulong",
-              "System.IntPtr"  => "nint",
-              "System.UIntPtr" => "nuint",
-              "System.Single"  => "float",
-              "System.Double"  => "double",
-              "System.Decimal" => "decimal",
-              "System.Boolean" => "bool",
-              "System.Char"    => "char",
-              "System.String"  => "string",
-              "System.Object"  => "object",
-              _                => type.Name };
+            { 
+            "System.SByte"   => "sbyte",
+            "System.Byte"    => "byte",
+            "System.Int16"   => "short",
+            "System.UInt16"  => "ushort",
+            "System.Int32"   => "int",
+            "System.UInt32"  => "uint",
+            "System.Int64"   => "long",
+            "System.UInt64"  => "ulong",
+            "System.IntPtr"  => "nint",
+            "System.UIntPtr" => "nuint",
+            "System.Single"  => "float",
+            "System.Double"  => "double",
+            "System.Decimal" => "decimal",
+            "System.Boolean" => "bool",
+            "System.Char"    => "char",
+            "System.String"  => "string",
+            "System.Object"  => "object",
+            _                => type.Name 
+            };
         }
     }
 
@@ -544,55 +547,61 @@ public partial class Algorithms
         static string GetSimpleTypeName(Type type)
         {
             return type.FullName switch
-            { "System.SByte"   => "sbyte",
-              "System.Byte"    => "byte",
-              "System.Int16"   => "short",
-              "System.UInt16"  => "ushort",
-              "System.Int32"   => "int",
-              "System.UInt32"  => "uint",
-              "System.Int64"   => "long",
-              "System.UInt64"  => "ulong",
-              "System.IntPtr"  => "nint",
-              "System.UIntPtr" => "nuint",
-              "System.Single"  => "float",
-              "System.Double"  => "double",
-              "System.Decimal" => "decimal",
-              "System.Boolean" => "bool",
-              "System.Char"    => "char",
-              "System.String"  => "string",
-              "System.Object"  => "object",
-              _                => type.Name };
+            { 
+                "System.SByte"   => "sbyte",
+                "System.Byte"    => "byte",
+                "System.Int16"   => "short",
+                "System.UInt16"  => "ushort",
+                "System.Int32"   => "int",
+                "System.UInt32"  => "uint",
+                "System.Int64"   => "long",
+                "System.UInt64"  => "ulong",
+                "System.IntPtr"  => "nint",
+                "System.UIntPtr" => "nuint",
+                "System.Single"  => "float",
+                "System.Double"  => "double",
+                "System.Decimal" => "decimal",
+                "System.Boolean" => "bool",
+                "System.Char"    => "char",
+                "System.String"  => "string",
+                "System.Object"  => "object",
+                _                => type.Name 
+            };
         }
     }
 
     [ThreadStatic] private static StringBuilder _stringBuilder4;
 
-    private static readonly HashSet<Type> TupleTypes =
-    [ typeof(ValueTuple<,>),
-      typeof(ValueTuple<,,>),
-      typeof(ValueTuple<,,,>),
-      typeof(ValueTuple<,,,,>),
-      typeof(ValueTuple<,,,,,>),
-      typeof(ValueTuple<,,,,,,>),
-      typeof(ValueTuple<,,,,,,,>) ];
+    private static readonly HashSet<Type> TupleTypes = new HashSet<Type>()
+    { 
+        typeof(ValueTuple<,>),
+        typeof(ValueTuple<,,>),
+        typeof(ValueTuple<,,,>),
+        typeof(ValueTuple<,,,,>),
+        typeof(ValueTuple<,,,,,>),
+        typeof(ValueTuple<,,,,,,>),
+        typeof(ValueTuple<,,,,,,,>) 
+    };
     private static readonly IReadOnlyDictionary<Type, string> BuiltinTypeNameDict = new Dictionary<Type, string>()
-    { { typeof(sbyte), "sbyte" },
-      { typeof(byte), "byte" },
-      { typeof(short), "short" },
-      { typeof(ushort), "ushort" },
-      { typeof(int), "int" },
-      { typeof(uint), "uint" },
-      { typeof(long), "long" },
-      { typeof(ulong), "ulong" },
-      { typeof(nint), "nint" },
-      { typeof(nuint), "nuint" },
-      { typeof(float), "float" },
-      { typeof(double), "double" },
-      { typeof(decimal), "decimal" },
-      { typeof(bool), "bool" },
-      { typeof(char), "char" },
-      { typeof(string), "string" },
-      { typeof(object), "object" } };
+    {
+        { typeof(sbyte), "sbyte" },
+        { typeof(byte), "byte" },
+        { typeof(short), "short" },
+        { typeof(ushort), "ushort" },
+        { typeof(int), "int" },
+        { typeof(uint), "uint" },
+        { typeof(long), "long" },
+        { typeof(ulong), "ulong" },
+        { typeof(nint), "nint" },
+        { typeof(nuint), "nuint" },
+        { typeof(float), "float" },
+        { typeof(double), "double" },
+        { typeof(decimal), "decimal" },
+        { typeof(bool), "bool" },
+        { typeof(char), "char" },
+        { typeof(string), "string" },
+        { typeof(object), "object" },
+    };
 
 
     public static string ConstructTypeName_JSDY_OPT4(Type type)
@@ -758,6 +767,7 @@ public partial class Algorithms
 
         static Type GetRootElementType(Type type)
         {
+
             var elementType = type;
             while (elementType!.HasElementType)
             {
@@ -884,13 +894,8 @@ public partial class Algorithms
 
         static Type GetRootElementType(Type type)
         {
-            var elementType = type;
-            while (elementType!.HasElementType)
-            {
-                elementType = elementType.GetElementType();
-            }
+            return !type.HasElementType ? type : GetRootElementType(type.GetElementType());
 
-            return elementType;
         }
 
         static void AppendArray(StringBuilder sb, Type type)

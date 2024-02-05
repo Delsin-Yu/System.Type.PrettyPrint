@@ -699,13 +699,16 @@ public partial class Algorithms
                         AppendParamTypes(sb, genericArgs);
                         break;
                     }
-                    AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
-                    sb.Append(", ");
+                    else
+                    {
+                        AppendParamTypes(sb, genericArgs.AsSpan(0, 7));
+                        sb.Append(", ");
 
-                    // TRest should be a ValueTuple!
-                    var nextTuple = genericArgs[7];
+                        // TRest should be a ValueTuple!
+                        var nextTuple = genericArgs[7];
 
-                    genericArgs = nextTuple.GenericTypeArguments;
+                        genericArgs = nextTuple.GenericTypeArguments;
+                    }
                 }
 
                 sb.Append(')');

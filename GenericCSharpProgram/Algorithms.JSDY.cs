@@ -1,8 +1,6 @@
 ﻿using System.Text;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
-using StringBuilder = System.Text.StringBuilder;
 
 namespace GenericCSharpProgram;
 
@@ -296,7 +294,10 @@ public partial class Algorithms
             };
         }
     }
+
+
     [ThreadStatic] private static StringBuilder _stringBuilder2;
+
     public static string ConstructTypeName_JSDY_OPT2(Type type)
     {
         if (!type.IsArray && !type.IsGenericType)

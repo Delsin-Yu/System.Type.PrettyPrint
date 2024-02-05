@@ -572,7 +572,7 @@ public partial class Algorithms
 
     [ThreadStatic] private static StringBuilder _stringBuilder4;
 
-    private static readonly HashSet<Type> TupleTypes = new HashSet<Type>()
+    private static readonly HashSet<Type> _tupleTypes = new HashSet<Type>()
     { 
         typeof(ValueTuple<,>),
         typeof(ValueTuple<,,>),
@@ -582,7 +582,7 @@ public partial class Algorithms
         typeof(ValueTuple<,,,,,,>),
         typeof(ValueTuple<,,,,,,,>) 
     };
-    private static readonly IReadOnlyDictionary<Type, string> BuiltinTypeNameDict = new Dictionary<Type, string>()
+    private static readonly Dictionary<Type, string> _builtinTypeNameDict = new ()
     {
         { typeof(sbyte), "sbyte" },
         { typeof(byte), "byte" },
@@ -683,7 +683,7 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            if (TupleTypes.Contains(genericDefinition))
+            if (_tupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
                 while (true)
@@ -732,7 +732,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return BuiltinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
+            return _builtinTypeNameDict.TryGetValue(type, out var name) ? name : type.Name;
         }
     }
     [ThreadStatic] private static StringBuilder _stringBuilder5;
@@ -817,7 +817,7 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            if (TupleTypes.Contains(genericDefinition))
+            if (_tupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
                 while (genericArgs.Length == 8)
@@ -859,7 +859,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return BuiltinTypeNameDict.GetValueOrDefault(type, type.Name);
+            return _builtinTypeNameDict.GetValueOrDefault(type, type.Name);
         }
     }
     [ThreadStatic] private static StringBuilder _stringBuilder6;
@@ -938,7 +938,7 @@ public partial class Algorithms
             }
 
             //ValueTuple
-            if (TupleTypes.Contains(genericDefinition))
+            if (_tupleTypes.Contains(genericDefinition))
             {
                 sb.Append('(');
                 AppendTuple(sb, ref genericArgs);
@@ -981,7 +981,7 @@ public partial class Algorithms
 
         static string GetSimpleTypeName(Type type)
         {
-            return BuiltinTypeNameDict.GetValueOrDefault(type, type.Name);
+            return _builtinTypeNameDict.GetValueOrDefault(type, type.Name);
         }
     }
 }

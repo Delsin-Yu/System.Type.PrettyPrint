@@ -33,8 +33,8 @@ jobs:
           RELEASE_VERSION: ${{ steps.release-selector.outputs.RELEASE_VERSION }}
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "$RELEASE_VERSION"
+          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
           prerelease: false
-          title: "Benchmark.Net Result $RELEASE_VERSION"
+          title: "Benchmark.Net Result ${{ env.RELEASE_VERSION }}"
           files: |
             ./GenericCSharpProgram.Algorithms.zip

@@ -807,7 +807,7 @@ public partial class Algorithms
             var elementType = type;
             while (true)
             {
-                if (!elementType!.HasElementType)
+                if (!elementType!.IsArray)
                 {
                     break;
                 }
@@ -833,7 +833,7 @@ public partial class Algorithms
             {
                 while (true)
                 {
-                    if (!type!.HasElementType)
+                    if (!type!.IsArray)
                     {
                         return;
                     }
@@ -943,7 +943,7 @@ public partial class Algorithms
 
         static Type GetRootElementType(Type type)
         {
-            return type!.HasElementType ? GetRootElementType(type.GetElementType()) : type;
+            return type!.IsArray ? GetRootElementType(type.GetElementType()) : type;
         }
 
 
@@ -959,7 +959,7 @@ public partial class Algorithms
 
             static void AppendArrayRecursive(StringBuilder sb, Type type)
             {
-                if (!type.HasElementType)
+                if (!type.IsArray)
                 {
                     return;
                 }
@@ -1075,7 +1075,7 @@ public partial class Algorithms
             var sbBrackets = _stringBuilderBrackets7;
             while (true)
             {
-                if (!elementType!.HasElementType)
+                if (!elementType!.IsArray)
                 {
                     AppendType(sb, elementType);
                     break;
@@ -1195,7 +1195,7 @@ public partial class Algorithms
             var listRanks = _listRanks8;
             while (true)
             {
-                if (!elementType!.HasElementType)
+                if (!elementType!.IsArray)
                 {
                     AppendType(sb, elementType);
                     break;
@@ -1321,7 +1321,7 @@ public partial class Algorithms
             var listRanks = _listRanks9;
             while (true)
             {
-                if (!elementType!.HasElementType)
+                if (!elementType!.IsArray)
                 {
                     AppendType(sb, elementType);
                     break;
@@ -1440,7 +1440,7 @@ public partial class Algorithms
         {
 
             var elementType = type;
-            while (elementType!.HasElementType)
+            while (elementType!.IsArray)
             {
                 elementType = elementType.GetElementType();
             }
@@ -1462,7 +1462,7 @@ public partial class Algorithms
 
             static void AppendArrayRecursive(StringBuilder sb, Type type)
             {
-                while (type!.HasElementType)
+                while (type!.IsArray)
                 {
 
                     //append bracket with rank
@@ -1574,7 +1574,7 @@ public partial class Algorithms
             //append inner most non-array element
             var sbBrackets = _stringBuilderBrackets7_2;
             var elementType = type;
-            while (elementType!.HasElementType)
+            while (elementType!.IsArray)
             {
                 sbBrackets.Append('[');
                 sbBrackets.Append(',', elementType.GetArrayRank() - 1);
@@ -1684,7 +1684,7 @@ public partial class Algorithms
             //append inner most non-array element
             var listRanks = _listRanks8_2;
             var elementType = type;
-            while (elementType!.HasElementType)
+            while (elementType!.IsArray)
             {
                 listRanks.Add(elementType.GetArrayRank() - 1);
                 elementType = elementType.GetElementType();
@@ -1803,7 +1803,7 @@ public partial class Algorithms
             var elementType = type;
             while (true)
             {
-                if (!elementType!.HasElementType)
+                if (!elementType!.IsArray)
                 {
                     AppendType(sb, elementType);
                     break;

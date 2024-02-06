@@ -26,7 +26,7 @@ jobs:
       - name: Set Release version env variable
         id: release-selector
         run: |
-          echo "RELEASE_VERSION=$(date "+%y.%m.%d-%H:$M")" >> $GITHUB_OUTPUT
+          echo "RELEASE_VERSION=$(date "+%y.%m.%d-%T")" >> $GITHUB_OUTPUT
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@v1.2.1
         env:
